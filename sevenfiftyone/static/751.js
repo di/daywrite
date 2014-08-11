@@ -14,7 +14,11 @@ jQuery(function($) {
         options: {
           type: "POST",
           success: function() {
-            alert("saved!");
+            jQuery("#current").animate({"border-color": "#8CC665"}, 1000)
+            jQuery("#current").animate({"border-color": "#EEEEEE"}, 3000)
+          },
+          error: function() {
+            alert("error!");
           }
         }
       }
