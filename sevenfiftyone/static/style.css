@@ -6,7 +6,6 @@ body, html {
     display: block;
 }
 div #past_status {
-    float:left;
     margin-left: -2px;
     margin-bottom: 2px;
 }
@@ -37,14 +36,19 @@ textarea {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    background:#dfd;
     border:0; margin:0;
     box-sizing:border-box;
     -moz-box-sizing:border-box;
     display: block;
+    resize: none;
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+    padding-bottom:25%;
 }
 #container{
     margin:0;padding:0;
+    padding-top:50px;
     display:block;
 }
 #wrapper{
@@ -60,9 +64,10 @@ textarea {
 }
 #footer{
     background:#fdd;
-    position: relative;
     margin: 0 auto;
     padding: 0;
     display:block;
     vertical-align: baseline;
+    background-color: #ffaaaa;
+    height: 100px;
 }

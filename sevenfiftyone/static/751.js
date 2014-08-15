@@ -26,6 +26,13 @@ jQuery(function($) {
   });
 });
 
-jQuery(function($) {
-  $('textarea').autosize();
+var scrollToBottom = function(){
+    $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+};
+
+$(document).ready(function(){
+  $('textarea').autosize({
+    "callback": scrollToBottom
+    });
+  $('textarea').caret(-1);
 });
