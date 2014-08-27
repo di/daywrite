@@ -27,9 +27,10 @@ div #current {
     height:16px;
     width:16px;
 }
-textarea {
-    line-height:32px;
-    font-size:20px;
+
+#content {
+    line-height:1.5em;
+    font-size:28px;
     width:770px;
     outline-style:none;
     outline-width: 0px;
@@ -45,7 +46,12 @@ textarea {
     -moz-transition: height 0.2s;
     transition: height 0.2s;
     padding-bottom:25%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+    white-space: normal;
 }
+
 #container{
     margin:0;padding:0;
     padding-top:50px;

@@ -57,8 +57,12 @@ def post_root():
 
 @app.route("/<year>/<month>/<day>/", methods=["GET"])
 def get_post(year, month, day):
-    post = Post.objects.get(date_string="%s-%s-%s" % (year, month, day))
-    return render_template('index.html', post=post)
+    date_string = "%s-%s-%s" % (year, month, day)
+    try:
+        post = Post.objects.get(date_string=date_string)
+    except Post.DoesNotExist:
+        return render_template('missing.html', date_string=date_string)
+    return render_template('past.html', post=post)
 
 class Status(EmbeddedDocument):
     date_string = StringField()
