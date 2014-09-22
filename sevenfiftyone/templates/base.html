@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    {% block head %}
+
+    <title>sevenfiftyone</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}' type='text/css' media='all' />
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
+    <link rel='stylesheet' href='{{ url_for('static', filename='style.css') }}' type='text/css' media='all' />
+
+    <script src='{{ url_for('static', filename='js/flash.js') }}'></script>
+
+    {% endblock %}
+
+    {% block backbone_templates %}{% endblock %}
+
+  </head>
+
+  <body>
+    {%- block user -%}
+    {% if current_user.is_authenticated() %}
+      <div class="admin_user_menu">
+        <div class='admin_user'>
+          <div class='admin_user_nav'>
+            <ul>
+              <li><a href=" {{ url_for('account.account') }} ">Account</a></li>
+              <li><a href=" {{ url_for('logout') }} ">Logout</a></li>
+            </ul>
+          </div>
+
+          <div class='identification'>
+          {% if current_user.admin %}
+            <div class="circle" style="background: url(http://www.gravatar.com/avatar/{{current_user.email_hash}}?s=30?d=mm)"/></div>
+          {% endif %}
+            <div id="name">{{ current_user.email}}</div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {%- endblock -%}
+
+
+    {% for message in get_flashed_messages() %}
+    <div class='admin_flashes'>
+      <div class='flash'>{{ message }}</div>
+    </div>
+    {% endfor %}
+
+
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+
+    {% block js_footer %}{% endblock %}
+
+  </body>
+</html>

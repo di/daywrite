@@ -1,0 +1,37 @@
+{% macro render(form) -%}
+<fieldset>
+{% set autofocused = false %}
+{% for field in form %}
+{% if field.type in ['CSRFTokenField', 'HiddenField'] %}
+  {{ field() }}
+{% else %}
+  <div class="form-group {% if field.errors %}error{% endif %}">
+    {% if not field.type == "SubmitField" %}
+      {{ field.label }}
+    {% endif %}
+    <div class="input_element">
+      {% if not autofocused %}
+        {{ field(autofocus=true) }}
+        {% set autofocused = true %}
+      {% else %}
+        {{ field() }}
+      {% endif %}
+      {% if field.errors or field.help_text %}
+        <span class="input_help">
+        {% if field.errors %}
+          {{ field.errors|join(' ') }}
+        {% else %}
+          {{ field.help_text }}
+        {% endif %}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+{% endfor %}
+{% if ref %}
+    <input type="hidden" name=next value={{ ref }}>
+{% endif %}
+
+</fieldset>
+{% endmacro %}
