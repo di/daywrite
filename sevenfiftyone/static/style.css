@@ -77,3 +77,11 @@ div #current {
     background-color: #ffaaaa;
     height: 100px;
 }
+
+.login-form{
+    max-width:500px;
+}
+
+.login-icon > h4{
+    color:#e7e9ec;
+}
