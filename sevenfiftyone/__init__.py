@@ -5,7 +5,7 @@ import requests
 import time
 import os
 from bs4 import BeautifulSoup
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template, flash, redirect, url_for, jsonify
 from mongoengine import *
 from urlparse import urlparse
 from time import strptime, mktime, strftime
@@ -69,7 +69,7 @@ def post_root():
             length = len(re.findall(r'\b\w+\b', content))
             completed = length > 750
             Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=request.form["content"], set__completed=completed, set__length=length)
-            return "", 200
+            return jsonify({"completed":length > 750}), 200
         return "", 500
     else:
         form = LoginForm()
