@@ -107,3 +107,17 @@ div .login-header {
 textarea {
     padding: 1em 0;
 }
+
+.admin_flashes {
+  z-index: 1001;
+  position:fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  font-size: 110px;
+  font-weight: normal;
+  padding: 5%;
+  background-color: #20E5BE;
+  color: #edeff1;
+}
