@@ -41,7 +41,7 @@ def past_status(date):
     for i in reversed(range(1, 32)):
         date_string = make_datestring(date - timedelta(days=i))
         try:
-            post = Post.objects.get(date_string=date_string)
+            post = Post.objects.get(date_string=date_string, owner=current_user.id)
             past_status.append(Status(date_string=date_string, completed=post.completed))
         except Post.DoesNotExist:
             past_status.append(Status(date_string=date_string, completed=False))
@@ -54,10 +54,10 @@ def index():
         start = now.replace(hour=0, minute=0, second=0, microsecond=0)
         end = start + timedelta(days=1)
         try:
-            post = Post.objects.get(Q(date__gt=start) & Q(date__lt=end))
+            post = Post.objects.get(Q(date__gt=start) & Q(date__lt=end) & Q(owner=current_user.id))
         except Post.DoesNotExist:
-            post = Post(date=now, past_status=past_status(now)).save()
-        return render_template('index.html', post=post)
+            post = Post(date=now, owner=current_user.id).save()
+        return render_template('index.html', post=post, past_status=past_status(now))
     return render_template('login.html', form=LoginForm(), ref=request.args.get('next', None))
 
 @app.route("/", methods=["POST"])
@@ -68,7 +68,7 @@ def post_root():
         if request.form["date_string"] == date_string:
             length = len(re.findall(r'\b\w+\b', content))
             completed = length > 750
-            Post.objects.get(date_string=date_string).update(set__content=request.form["content"], set__completed=completed, set__length=length)
+            Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=request.form["content"], set__completed=completed, set__length=length)
             return "", 200
         return "", 500
     else:
@@ -85,9 +85,9 @@ def post_root():
 
 @app.route("/<int:year>/<int:month>/<int:day>/", methods=["GET"])
 def get_post(year, month, day):
-    date_string = "%d-%d-%d" % (year, month, day)
+    date_string = "%d-%02d-%02d" % (year, month, day)
     try:
-        post = Post.objects.get(date_string=date_string)
+        post = Post.objects.get(date_string=date_string, owner=current_user.id)
     except Post.DoesNotExist:
         return render_template('missing.html', date_string=date_string)
     return render_template('past.html', post=post)

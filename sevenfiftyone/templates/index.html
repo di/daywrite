@@ -14,7 +14,7 @@
     <body>
         <div id="wrapper">
             <div id="past_status">
-            {% for status in post.past_status %}
+            {% for status in past_status %}
                 <a href="/{{ status.url_string() }}/">
                 {% if status.completed %}
                     <div class="status complete"></div>
