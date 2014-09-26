@@ -78,10 +78,32 @@ div #current {
     height: 100px;
 }
 
-.login-form{
-    max-width:500px;
+.content, .content > form {
+    height:100%;
 }
 
-.login-icon > h4{
-    color:#e7e9ec;
+h5 {
+    font-size:18px;
+    font-weight: normal;
+}
+
+div .login-header {
+    padding-bottom:20px;
+}
+
+.login-header > h3 {
+    margin:10px;
+    font-size:36px;
+    display:block;
+}
+
+.login-header > h5 {
+}
+
+.login-icon {
+    padding-right:10px;
+}
+
+textarea {
+    padding: 1em 0;
 }

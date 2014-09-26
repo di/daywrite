@@ -5766,22 +5766,19 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
   }
 .login {
   position: relative;
-  padding: 38px 38px 267px;
-  margin-bottom: 77px;
   color: #fff;
-  background: url(../img/login/imac.png) 0 0 no-repeat;
-  background-size: 940px 778px;
+  height:100%;
   }
 .login-screen {
-  min-height: 473px;
-  padding: 123px 199px 33px 306px;
+  height: 100%;
+  padding:10% 30% 10% 30%;
+  width: 100%;
   background-color: #1abc9c;
   }
 .login-icon {
-  position: absolute;
-  top: 160px;
-  left: 200px;
-  width: 96px;
+  height: 25%;
+  float:left;
+  display:block;
   }
 .login-icon > img {
   display: block;
@@ -5803,8 +5800,10 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .login-form {
   position: relative;
   padding: 24px 23px 20px;
+  width:100%;
   background-color: #edeff1;
   border-radius: 6px;
+  margin:0;
   }
 .login-form .control-group {
   position: relative;
@@ -5836,11 +5835,6 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
   font-size: 13px;
   color: #bfc9ca;
   text-align: center;
-  }
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 2) {
-  .login {
-    background-image: url(../img/login/imac-2x.png);
-    }
   }
 footer {
   padding: 0;

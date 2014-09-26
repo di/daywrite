@@ -3,14 +3,17 @@
 
   <form action="{{ url_for('index') }}" method=post>
         <div class="login-screen">
-          <div class="login-icon">
-            <img src="{{ url_for('static', filename="img/icons/svg/pencils.svg") }}" alt="Welcome to Mail App" />
-            <h4>Welcome to <small>751</small></h4>
-          </div>
-
           <div class="login-form">
+            <div class="login-icon">
+              <img src="{{ url_for('static', filename="img/icons/svg/pencils.svg") }}" alt="Pencils" />
+            </div>
+            <div class="login-header">
+              <h3>751 words</h3>
+              <h5>Better writing every day.</h5>
+            </div>
+
             <div class="form-group">
-              <input type="text" class="form-control login-field" value="" placeholder="Enter your email address" id="login-name" name="email" />
+              <input type="text" class="form-control login-field" value="" placeholder="Email" id="login-name" name="email" />
               <label class="login-field-icon fui-user" for="login-name"></label>
             </div>
 
