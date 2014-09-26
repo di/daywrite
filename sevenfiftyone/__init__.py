@@ -120,7 +120,7 @@ def post_register():
 
 @app.route("/forgot_password/")
 def forgot_password():
-    pass
+    return "Too bad."
 
 @app.route("/logout/")
 def logout():
