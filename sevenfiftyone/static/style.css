@@ -6,32 +6,24 @@ body, html {
     display: block;
 }
 div #past_status {
-    margin-left: -2px;
     padding-top:25px;
     height:25px;
+    padding-bottom:25px;
+    font-size:20px;
+    box-sizing:content-box;
 }
-div .status {
-    float:left;
-    height: 20px;
-    width: 20px;
-    margin: 2px;
+
+#content, p {
+    line-height:1.5em;
+    font-size:28px;
 }
-div .complete {
-    background-color: rgb(140, 198, 101);
-}
-div .incomplete {
-    background-color: rgb(238, 238, 238);
-}
-div #current {
-    background-color: #fff;
-    border: 2px dashed #eee;
-    height:16px;
-    width:16px;
+
+p:first-child {
+    -webkit-margin-before:0;
+    margin-before:0;
 }
 
 #content {
-    line-height:1.5em;
-    font-size:28px;
     width:770px;
     outline-style:none;
     outline-width: 0px;
@@ -46,11 +38,13 @@ div #current {
     -webkit-transition: height 0.2s;
     -moz-transition: height 0.2s;
     transition: height 0.2s;
+    padding: 0;
     padding-bottom:25%;
     font-family: 'Open Sans', sans-serif;
     text-align: justify;
     text-justify: inter-word;
     white-space: normal;
+    color: #000;
 }
 
 #container{
@@ -120,4 +114,17 @@ textarea {
   padding: 5%;
   background-color: #20E5BE;
   color: #edeff1;
+}
+
+.fui-checkbox-checked{
+    color: #1abc9c;
+}
+
+.fui-checkbox-unchecked, a:hover.fui-checkbox-unchecked {
+    color: #becac9;
+}
+
+.fui-new {
+    font-size: 19px;
+    color: #becac9;
 }

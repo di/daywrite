@@ -1,16 +1,24 @@
 {% extends "inside_base.html" %}
+
+{% block styles %}
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}' type='text/css' media='all' />
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
+{% endblock %}
+
 {% block content %}
     <div id="past_status">
     {% for status in past_status %}
-        <a href="/{{ status.url_string() }}/">
         {% if status.completed %}
-            <div class="status complete"></div>
+            <a href="/{{ status.url_string() }}/" class="fui-checkbox-checked"></a>
         {% else %}
-            <div class="status incomplete"></div>
+            <a href="/{{ status.url_string() }}/" class="fui-checkbox-unchecked"></a>
         {% endif %}
-        </a>
     {% endfor %}
-            <div id="current" class="status incomplete"></div>
+    {% if post.length > 750 %}
+            <span class="fui-checkbox-checked"></span>
+    {% else %}
+            <span id="current" class="fui-new"></span>
+    {% endif %}
     </div>
     <div id="container">
         <form name="myform" id="myform">
