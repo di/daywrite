@@ -27,7 +27,11 @@ jQuery(function($) {
 });
 
 var scrollToBottom = function(){
-    $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+    // Check if the caret is at the end of the textarea
+    if ($('textarea').caret() == $('textarea').val().length) {
+        // If it is, do the animation
+        $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+    }
 };
 
 $(document).ready(function(){
