@@ -13,9 +13,22 @@ jQuery(function($) {
         method: "ajax",
         options: {
           type: "POST",
-          success: function() {
-            jQuery("#current").animate({"color": "#1abc9c"}, 1000)
-            jQuery("#current").animate({"color": "#becac9"}, 3000)
+          success: function(data, textStatus, jqXHR) {
+            var cur = jQuery("#current");
+            if (data.completed) {
+                if(cur.hasClass("fui-new")) {
+                    cur.removeAttr('style');
+                    cur.toggleClass("fui-new fui-checkbox-checked", 3000);
+                }
+            } else {
+                if (cur.hasClass("fui-checkbox-checked")) {
+                    cur.removeAttr('style');
+                    cur.toggleClass("fui-new fui-checkbox-checked", 3000);
+                } else {
+                    cur.animate({"color": "#1abc9c"}, 1000)
+                    cur.animate({"color": "#becac9"}, 3000)
+                }
+            }
           },
           error: function() {
             alert("error!");

@@ -120,11 +120,10 @@ textarea {
     color: #1abc9c;
 }
 
-.fui-checkbox-unchecked, a:hover.fui-checkbox-unchecked {
+.fui-new, .fui-checkbox-unchecked, a:hover.fui-checkbox-unchecked {
     color: #becac9;
 }
 
 .fui-new {
     font-size: 19px;
-    color: #becac9;
 }
