@@ -1,36 +1,21 @@
-<!doctype html>
-<html>
-    <head>
-        <title>751 {{ post.date_string }}</title>
-        <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
-        <script src="{{ url_for('static', filename='jquery.autosave.js') }}" type="text/javascript"></script>
-        <script src="{{ url_for('static', filename='jquery.autosize.js') }}" type="text/javascript"></script>
-        <script src="{{ url_for('static', filename='jquery.caret.js') }}" type="text/javascript"></script>
-        <script src="{{ url_for('static', filename='751.js') }}" type="text/javascript"></script>
-        <link href="{{ url_for('static', filename='style.css') }}" rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <div id="wrapper">
-            <div id="past_status">
-            {% for status in past_status %}
-                <a href="/{{ status.url_string() }}/">
-                {% if status.completed %}
-                    <div class="status complete"></div>
-                {% else %}
-                    <div class="status incomplete"></div>
-                {% endif %}
-                </a>
-            {% endfor %}
-                    <div id="current" class="status incomplete"></div>
-            </div>
-            <div id="container">
-                <form name="myform" id="myform">
-                    <input type="hidden" name="date_string" id="date_string" value="{{ post.date_string }}"/>
-                    <textarea name="content" id="content" cols=40 autofocus>{{ post.content }}</textarea>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
+{% extends "inside_base.html" %}
+{% block content %}
+    <div id="past_status">
+    {% for status in past_status %}
+        <a href="/{{ status.url_string() }}/">
+        {% if status.completed %}
+            <div class="status complete"></div>
+        {% else %}
+            <div class="status incomplete"></div>
+        {% endif %}
+        </a>
+    {% endfor %}
+            <div id="current" class="status incomplete"></div>
+    </div>
+    <div id="container">
+        <form name="myform" id="myform">
+            <input type="hidden" name="date_string" id="date_string" value="{{ post.date_string }}"/>
+            <textarea name="content" id="content" cols=40 autofocus>{{ post.content }}</textarea>
+        </form>
+    </div>
+{% endblock %}

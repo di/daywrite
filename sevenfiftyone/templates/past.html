@@ -1,22 +1,11 @@
-<!doctype html>
-<html>
-    <head>
-        <title>751 {{ post.date_string }}</title>
-        <link href="{{ url_for('static', filename='style.css') }}" rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <div id="wrapper">
-            <div id="container">
-                <form name="myform" id="myform">
-                    <input type="hidden" name="date_string" id="date_string" value="{{ post.date_string }}"/>
-                    <span name="content" id="content" cols=40 autofocus>
-                        {% for p in post.content.split('\n') %}
-                            <p>{{ p }}</p>
-                        {% endfor %}
-                    </span>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
+{% extends "inside_base.html" %}
+{% block content %}
+    <div id="past_status"></div>
+    <div id="container">
+        <span name="content" id="content" cols=40 autofocus>
+            {% for p in post.content.split('\n') %}
+                <p>{{ p }}</p>
+            {% endfor %}
+        </span>
+    </div>
+{% endblock %}
