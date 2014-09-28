@@ -15,7 +15,9 @@ jQuery(function($) {
           type: "POST",
           success: function(data, textStatus, jqXHR) {
             var cur = jQuery("#current");
-            if (data.completed) {
+            if (data.refresh) {
+                location.reload(true);
+            } else if (data.completed) {
                 if(cur.hasClass("fui-new")) {
                     cur.removeAttr('style');
                     cur.toggleClass("fui-new fui-checkbox-checked", 3000);

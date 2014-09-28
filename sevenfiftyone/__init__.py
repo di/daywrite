@@ -65,8 +65,8 @@ def post_root():
             length = len(re.findall(r'\b\w+\b', content))
             completed = length > 750
             Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=request.form["content"], set__completed=completed, set__length=length)
-            return jsonify({"completed":length > 750}), 200
-        return redirect(url_for("index"))
+            return jsonify({"completed":length > 750, "refresh": False}), 200
+        return jsonify({"completed":false, "refresh": True}), 200
     else:
         form = LoginForm()
         ref = request.values.get('next', None)
