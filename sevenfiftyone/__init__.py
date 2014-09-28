@@ -20,6 +20,7 @@ from forms.LoginForm import LoginForm
 from forms.RegisterForm import RegisterForm
 import md5
 from werkzeug import check_password_hash, generate_password_hash
+from pytz import timezone
 
 class AnonymousUser(AnonymousUserMixin):
   def __init__(self):
@@ -33,10 +34,11 @@ app.jinja_env.trim_blocks = True
 # For CSRF usage
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
-def make_datestring(date=datetime.now()):
+def make_datestring(date=datetime.now(timezone(current_user.timezone))):
     return date.strftime("%Y-%m-%d")
 
-def past_status(date):
+def past_status():
+    date = datetime.now(timezone(current_user.timezone))
     past_status = []
     for i in reversed(range(1, 32)):
         date_string = make_datestring(date - timedelta(days=i))
@@ -50,14 +52,8 @@ def past_status(date):
 @app.route("/", methods=["GET"])
 def index():
     if current_user.is_authenticated():
-        now = datetime.now()
-        start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        end = start + timedelta(days=1)
-        try:
-            post = Post.objects.get(Q(date__gt=start) & Q(date__lt=end) & Q(owner=current_user.id))
-        except Post.DoesNotExist:
-            post = Post(date=now, owner=current_user.id).save()
-        return render_template('index.html', post=post, past_status=past_status(now))
+        post, created = Post.objects.get_or_create(date_string=make_datestring(), owner=current_user.id)
+        return render_template('index.html', post=post, past_status=past_status())
     return render_template('login.html', form=LoginForm(), ref=request.args.get('next', None))
 
 @app.route("/", methods=["POST"])

@@ -16,6 +16,7 @@ class User(Document, UserMixin):
     registered = BooleanField(default=False)
     created_at = DateTimeField(default=datetime.datetime.now())
     email_hash = StringField()
+    timezone = StringField(default="US/Eastern")
 
     meta = {'allow_inheritance': True}
 

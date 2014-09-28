@@ -10,10 +10,6 @@ class Post(Document):
     length = IntField(default=0)
     owner = ReferenceField(User)
 
-    meta = {
-        'indexes': ['date_string']
-    }
-
     def save(self, *args, **kwargs):
         self.date_string = self.date.strftime("%Y-%m-%d")
         super(Post, self).save(*args, **kwargs)
