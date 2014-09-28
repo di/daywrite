@@ -43,15 +43,11 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 def past_status():
     date = datetime.now(timezone(current_user.timezone))
-    past_status = []
-    for i in reversed(range(1, 30)):
-        date_string = make_datestring(date - timedelta(days=i))
-        try:
-            post = Post.objects.get(date_string=date_string, owner=current_user.id)
-            past_status.append((post.completed, post.length, post.url_string()))
-        except Post.DoesNotExist:
-            past_status.append((False, 0, None))
-    return past_status
+    post_map = dict()
+    posts = Post.objects(owner=current_user.id).order_by('-date').limit(30)
+    for post in posts:
+        post_map[post.date_string] = (post.completed, post.length, post.url_string())
+    return [post_map.get(make_datestring(date - timedelta(days=i)), (False, 0, None)) for i in reversed(range(1,30))]
 
 @app.route("/", methods=["GET"])
 def index():
