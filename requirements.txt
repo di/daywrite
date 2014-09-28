@@ -16,5 +16,6 @@ itsdangerous==0.24
 mongoengine==0.8.7
 passlib==1.6.2
 pymongo==2.6.3
+pytz==2014.7
 requests==1.2.0
 wsgiref==0.1.2
