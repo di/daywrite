@@ -66,7 +66,7 @@ def post_root():
             completed = length > 750
             Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=request.form["content"], set__completed=completed, set__length=length)
             return jsonify({"completed":length > 750}), 200
-        return "", 500
+        return redirect(url_for("index"))
     else:
         form = LoginForm()
         ref = request.values.get('next', None)
