@@ -7,6 +7,7 @@ class Post(Document):
     date = DateTimeField(default=datetime.now)
     completed = BooleanField(default=False)
     date_string = StringField()
+    blurb = StringField()
     length = IntField(default=0)
     owner = ReferenceField(User)
 

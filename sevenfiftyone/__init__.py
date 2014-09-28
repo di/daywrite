@@ -25,16 +25,21 @@ class AnonymousUser(AnonymousUserMixin):
   def __init__(self):
     self.admin = False
 
+def make_datestring(date):
+    return date.strftime("%Y-%m-%d")
+
+def make_text_date(date):
+    return date.strftime("%b %-d, %Y")
+
 app = Flask(__name__)
 
 # Tell jinja to trim blocks
 app.jinja_env.trim_blocks = True
+app.jinja_env.globals.update(min=min)
+app.jinja_env.filters["text_date"] = make_text_date
 
 # For CSRF usage
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-
-def make_datestring(date):
-    return date.strftime("%Y-%m-%d")
 
 def past_status():
     date = datetime.now(timezone(current_user.timezone))
@@ -62,9 +67,15 @@ def post_root():
         content = request.form["content"]
         date_string = make_datestring(datetime.now(timezone(current_user.timezone)))
         if request.form["date_string"] == date_string:
+            content = request.form["content"]
             length = len(re.findall(r'\b\w+\b', content))
             completed = length > 750
-            Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=request.form["content"], set__completed=completed, set__length=length)
+            blurb = content[:50]
+            if 0 < blurb.find(".") < 50:
+                blurb = blurb[:blurb.find(".")+1]
+            else :
+                blurb = blurb[:blurb.rfind(" ")] + "..."
+            Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=content, set__completed=completed, set__length=length, set__blurb=blurb)
             return jsonify({"completed":length > 750, "refresh": False}), 200
         return jsonify({"completed":false, "refresh": True}), 200
     else:
@@ -87,7 +98,13 @@ def get_post(year, month, day):
             post = Post.objects.get(date_string=date_string, owner=current_user.id)
         except Post.DoesNotExist:
             return render_template('missing.html', date_string=date_string)
-        return render_template('past.html', post=post)
+        return render_template('past_single.html', post=post)
+    return redirect(url_for("index"))
+
+@app.route("/past/", methods=["GET"])
+def get_past():
+    if current_user.is_authenticated():
+        return render_template('past.html', posts=Post.objects(owner=current_user.id, length__gt=0).order_by('-date'))
     return redirect(url_for("index"))
 
 @app.route("/register/", methods=["GET"])
