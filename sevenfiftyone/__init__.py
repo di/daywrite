@@ -34,7 +34,7 @@ app.jinja_env.trim_blocks = True
 # For CSRF usage
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
-def make_datestring(date=datetime.now(timezone(current_user.timezone))):
+def make_datestring(date):
     return date.strftime("%Y-%m-%d")
 
 def past_status():
@@ -52,7 +52,8 @@ def past_status():
 @app.route("/", methods=["GET"])
 def index():
     if current_user.is_authenticated():
-        post, created = Post.objects.get_or_create(date_string=make_datestring(), owner=current_user.id)
+        date_string = make_datestring(datetime.now(timezone(current_user.timezone)))
+        post, created = Post.objects.get_or_create(date_string=date_string, owner=current_user.id)
         return render_template('index.html', post=post, past_status=past_status())
     return render_template('login.html', form=LoginForm(), ref=request.args.get('next', None))
 
@@ -60,7 +61,7 @@ def index():
 def post_root():
     if current_user.is_authenticated():
         content = request.form["content"]
-        date_string = make_datestring()
+        date_string = make_datestring(datetime.now(timezone(current_user.timezone)))
         if request.form["date_string"] == date_string:
             length = len(re.findall(r'\b\w+\b', content))
             completed = length > 750
