@@ -82,12 +82,14 @@ def post_root():
 
 @app.route("/<int:year>/<int:month>/<int:day>/", methods=["GET"])
 def get_post(year, month, day):
-    date_string = "%d-%02d-%02d" % (year, month, day)
-    try:
-        post = Post.objects.get(date_string=date_string, owner=current_user.id)
-    except Post.DoesNotExist:
-        return render_template('missing.html', date_string=date_string)
-    return render_template('past.html', post=post)
+    if current_user.is_authenticated():
+        date_string = "%d-%02d-%02d" % (year, month, day)
+        try:
+            post = Post.objects.get(date_string=date_string, owner=current_user.id)
+        except Post.DoesNotExist:
+            return render_template('missing.html', date_string=date_string)
+        return render_template('past.html', post=post)
+    return redirect(url_for("index"))
 
 @app.route("/register/", methods=["GET"])
 def get_register():
