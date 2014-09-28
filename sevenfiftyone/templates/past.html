@@ -1,5 +1,13 @@
 {% extends "inside_base.html" %}
+{% block styles %}
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}' type='text/css' media='all' />
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
+{% endblock %}
+
 {% block content %}
+    <div id="back">
+        <a href="#" class="fui-arrow-left"></a>
+    </div>
     <div id="past_status"></div>
     <div id="container">
         <span name="content" id="content" cols=40 autofocus>

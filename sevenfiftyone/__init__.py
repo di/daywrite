@@ -39,7 +39,7 @@ def make_datestring(date):
 def past_status():
     date = datetime.now(timezone(current_user.timezone))
     past_status = []
-    for i in reversed(range(1, 32)):
+    for i in reversed(range(1, 30)):
         date_string = make_datestring(date - timedelta(days=i))
         try:
             post = Post.objects.get(date_string=date_string, owner=current_user.id)

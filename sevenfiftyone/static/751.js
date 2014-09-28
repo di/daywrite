@@ -53,3 +53,8 @@ $(document).ready(function(){
     });
   $('textarea').caret(-1);
 });
+
+// Enable tooltips
+$(function(){
+    $("[rel='tooltip']").tooltip();
+});

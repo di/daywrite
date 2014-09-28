@@ -6,22 +6,27 @@
 {% endblock %}
 
 {% block content %}
+    <div id="back">
+        <a href="#" class="fui-arrow-left"></a>
+    </div>
     <div id="past_status">
     {% for completed, length, url_string in past_status %}
         {% if length > 0 %}
             {% if completed %}
-                <a href="/{{ url_string }}/" class="fui-checkbox-checked"></a>
+                <a href="/{{ url_string }}/" class="fui-checkbox-checked" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="{{ url_string }}"></a>
             {% else %}
-                <a href="/{{ url_string }}/" class="fui-checkbox-unchecked incomplete"></a>
+                <a href="/{{ url_string }}/" class="fui-checkbox-unchecked incomplete" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="{{ url_string }}"></a>
             {% endif %}
         {% else %}
             <span class="fui-checkbox-unchecked dne"></span>
         {% endif %}
     {% endfor %}
+    </div>
+    <div id="today">
     {% if post.length > 750 %}
-            <span id="current" class="fui-checkbox-checked"></span>
+        <span id="current" class="fui-checkbox-checked"></span>
     {% else %}
-            <span id="current" class="fui-new"></span>
+        <span id="current" class="fui-new"></span>
     {% endif %}
     </div>
     <div id="container">
