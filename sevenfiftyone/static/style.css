@@ -15,7 +15,7 @@ div #past_status {
 
 #content, p {
     line-height:1.5em;
-    font-size:28px;
+    font-size:22px;
 }
 
 p:first-child {
@@ -41,8 +41,6 @@ p:first-child {
     padding: 0;
     padding-bottom:25%;
     font-family: 'Open Sans', sans-serif;
-    text-align: justify;
-    text-justify: inter-word;
     white-space: normal;
     color: #000;
 }
@@ -120,8 +118,12 @@ textarea {
     color: #1abc9c;
 }
 
-.fui-new, .fui-checkbox-unchecked, a:hover.fui-checkbox-unchecked {
+.fui-new, .incomplete, a:hover.incomplete {
     color: #becac9;
+}
+
+.dne {
+    color: #fff;
 }
 
 .fui-new {

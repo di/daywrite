@@ -7,11 +7,15 @@
 
 {% block content %}
     <div id="past_status">
-    {% for status in past_status %}
-        {% if status.completed %}
-            <a href="/{{ status.url_string() }}/" class="fui-checkbox-checked"></a>
+    {% for completed, length, url_string in past_status %}
+        {% if length > 0 %}
+            {% if completed %}
+                <a href="/{{ url_string }}/" class="fui-checkbox-checked"></a>
+            {% else %}
+                <a href="/{{ url_string }}/" class="fui-checkbox-unchecked incomplete"></a>
+            {% endif %}
         {% else %}
-            <a href="/{{ status.url_string() }}/" class="fui-checkbox-unchecked"></a>
+            <span class="fui-checkbox-unchecked dne"></span>
         {% endif %}
     {% endfor %}
     {% if post.length > 750 %}

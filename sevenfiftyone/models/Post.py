@@ -13,3 +13,6 @@ class Post(Document):
     def save(self, *args, **kwargs):
         self.date_string = self.date.strftime("%Y-%m-%d")
         super(Post, self).save(*args, **kwargs)
+
+    def url_string(self):
+        return self.date_string.replace("-","/")

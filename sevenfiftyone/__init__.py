@@ -13,7 +13,6 @@ from datetime import datetime, timedelta
 from mongoengine import Q
 import re
 from models.User import User
-from models.Status import Status
 from models.Post import Post
 from flask.ext.login import LoginManager, current_user, AnonymousUserMixin, login_user, logout_user
 from forms.LoginForm import LoginForm
@@ -44,9 +43,9 @@ def past_status():
         date_string = make_datestring(date - timedelta(days=i))
         try:
             post = Post.objects.get(date_string=date_string, owner=current_user.id)
-            past_status.append(Status(date_string=date_string, completed=post.completed))
+            past_status.append((post.completed, post.length, post.url_string()))
         except Post.DoesNotExist:
-            past_status.append(Status(date_string=date_string, completed=False))
+            past_status.append((False, 0, None))
     return past_status
 
 @app.route("/", methods=["GET"])
