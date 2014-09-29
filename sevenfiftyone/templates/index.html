@@ -3,11 +3,19 @@
 {% block styles %}
     <link rel='stylesheet' href='{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}' type='text/css' media='all' />
     <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
+    <script>
+    $(document).ready(function(){
+      $('textarea').autosize({
+        "callback": scrollToBottom
+        });
+      $('textarea').caret(-1);
+    });
+    </script>
 {% endblock %}
 
 {% block content %}
     <div id="back">
-        <a href="/past/" class="fui-arrow-left"></a>
+        <a href="/past/" class="fui-arrow-left" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Older"></a>
     </div>
     <div id="past_status">
     {% for completed, length, url_string in past_status %}
@@ -24,9 +32,9 @@
     </div>
     <div id="today">
     {% if post.length > 750 %}
-        <span id="current" class="fui-checkbox-checked"></span>
+        <a id="current" class="fui-checkbox-checked" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
     {% else %}
-        <span id="current" class="fui-new"></span>
+        <a id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
     {% endif %}
     </div>
     <div id="container">

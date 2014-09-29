@@ -1,4 +1,5 @@
 {% extends "inside_base.html" %}
+
 {% block styles %}
     <link rel='stylesheet' href='{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}' type='text/css' media='all' />
     <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
@@ -12,7 +13,7 @@
     -->
     <div id="past_status"></div>
     <div id="today">
-        <a href="/" id="current" class="fui-new"></a>
+        <a href="/" id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
     </div>
     <div id="container">
         <span name="content" id="content" cols=40 autofocus>

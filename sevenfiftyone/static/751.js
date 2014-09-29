@@ -27,8 +27,13 @@ jQuery(function($) {
                     cur.removeAttr('style');
                     cur.toggleClass("fui-new fui-checkbox-checked", 3000);
                 } else {
-                    cur.animate({"color": "#1abc9c"}, 1000)
-                    cur.animate({"color": "#becac9"}, 3000)
+                    $("#current").animate({"color": "#16A085"}, 1000).
+                    delay(100).
+                    animate({"color": "#BDC3C7"}, 4000, "swing",
+                        function() {
+                            $("#current").removeAttr('style');
+                        }
+                    );
                 }
             }
           },
@@ -48,13 +53,6 @@ var scrollToBottom = function(){
         $('html, body').stop().animate({scrollTop: $(document).height()});
     }
 };
-
-$(document).ready(function(){
-  $('textarea').autosize({
-    "callback": scrollToBottom
-    });
-  $('textarea').caret(-1);
-});
 
 // Enable tooltips
 $(function(){
