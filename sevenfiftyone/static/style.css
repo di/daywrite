@@ -5,29 +5,120 @@ body, html {
     height: 100%;
     display: block;
 }
-div #back {
-    margin-left: -25px;
-    width: 25px
-}
 
-div #today {
-    margin-left:755px;
-    width: 25px;
-    position:fixed;
-}
-
-div #past_status {
+/* Header */
+header {
     width: 100%;
+    padding:25px;
+    font-size:22px;
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    top: 0
 }
 
-div #back, #past_status, #today {
+div.bar-icon {
     text-align: center;
-    padding-top:25px;
-    height:25px;
-    padding-bottom:25px;
+    height:1.6em;
     font-size:22px;
     box-sizing:content-box;
+}
+
+div.bar-icon-fixed {
+    width: 25px;
+}
+
+div#configure {
     float:left;
+}
+
+div#back {
+    float:left;
+}
+
+div#past_status {
+    width: 100%;
+    padding-top:25px;
+}
+
+div#today {
+    float:right;
+}
+
+div#logout {
+    top: 0px;
+    float:right;
+}
+
+div#stretch {
+    width: 100%;
+    max-width: 805px;
+    height:1.6em;
+    margin:0 auto;
+}
+
+.headroom{
+-webkit-transition:-webkit-transform 200ms linear;
+        transition:transform 200ms linear;
+}
+
+.headroom--pinned{
+-webkit-transform:translateY(0%);
+        transform:translateY(0%);
+}
+
+.headroom--unpinned{
+-webkit-transform:translateY(-100%);
+        transform:translateY(-100%);
+}
+
+.fui-checkbox-checked{
+    /*color: #1abc9c;*/
+}
+
+.fui-new, .incomplete {
+    color: #BDC3C7;
+}
+
+a:hover.fui-new {
+    color: #16A085;
+}
+
+a:hover.incomplete {
+    color: #DCE0E1;
+}
+
+.dne {
+    color: transparent;
+}
+
+.fui-checkbox-unchecked {
+    height: 50%; !important
+}
+
+.tooltip{
+    font-size: 12px;
+}
+
+.tooltip-arrow {
+    border-width: 0 4px 4px !important;
+    margin-left: -4px !important;
+    border-bottom-color: #DCE0E1 !important;
+}
+
+.tooltip-inner{
+    padding:2px 4px 2px 4px;
+    margin-top: -5px;
+    background-color: #DCE0E1;
+    color: #777;
+}
+
+/* Content and archive */
+
+textarea {
+    padding: 1em 0;
+    background-color: transparent;
 }
 
 #content, p {
@@ -70,6 +161,7 @@ p:first-child {
     margin:0;padding:0;
     display:block;
 }
+
 #wrapper{
     min-height: 100%;
     height: auto !important;
@@ -82,6 +174,7 @@ p:first-child {
     text-align: left;
     display: block;
 }
+
 #footer{
     background:#fdd;
     margin: 0 auto;
@@ -96,12 +189,14 @@ p:first-child {
     height:100%;
 }
 
+/* Login */
+
 h5 {
     font-size:18px;
     font-weight: normal;
 }
 
-div .login-header {
+div.login-header {
     padding-bottom:20px;
 }
 
@@ -118,9 +213,7 @@ div .login-header {
     padding-right:10px;
 }
 
-textarea {
-    padding: 1em 0;
-}
+/* Flash */
 
 .admin_flashes {
   z-index: 1001;
@@ -134,45 +227,4 @@ textarea {
   padding: 5%;
   background-color: #20E5BE;
   color: #edeff1;
-}
-
-.fui-checkbox-checked{
-    /*color: #1abc9c;*/
-}
-
-.fui-new, .incomplete {
-    color: #BDC3C7;
-}
-
-a:hover.fui-new {
-    color: #16A085;
-}
-
-a:hover.incomplete {
-    color: #DCE0E1;
-}
-
-.dne {
-    color: #fff;
-}
-
-.fui-checkbox-unchecked {
-    height: 50%; !important
-}
-
-.tooltip{
-    font-size: 12px;
-}
-
-.tooltip-arrow {
-    border-width: 0 4px 4px !important;
-    margin-left: -4px !important;
-    border-bottom-color: #DCE0E1 !important;
-}
-
-.tooltip-inner{
-    padding:2px 4px 2px 4px;
-    margin-top: -5px;
-    background-color: #DCE0E1;
-    color: #777;
 }

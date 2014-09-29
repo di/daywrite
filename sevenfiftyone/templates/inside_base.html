@@ -10,6 +10,8 @@
         <script src="{{ url_for('static', filename='jquery.caret.js') }}" type="text/javascript"></script>
         <script src="{{ url_for('static', filename='751.js') }}" type="text/javascript"></script>
         <script src='{{ url_for('static', filename='js/flash.js') }}'></script>
+        <script src='{{ url_for('static', filename='js/vendor/jquery.headroom.min.js') }}'></script>
+        <script src='{{ url_for('static', filename='js/vendor/headroom.min.js') }}'></script>
 
         {% block styles %}{% endblock %}
         <link rel='stylesheet' href='{{ url_for('static', filename='style.css') }}' type='text/css' media='all' />
@@ -17,6 +19,9 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     </head>
     <body>
+        <header id="header" class="headroom">
+            {% block header %}{% endblock %}
+        </header>
         <div id="wrapper">
             {% block content %}{% endblock %}
        </div>

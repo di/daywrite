@@ -22,11 +22,32 @@
     </script>
 {% endblock %}
 
-{% block content %}
-    <div id="back">
-        <a href="/past/" class="fui-arrow-left" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Older"></a>
+{% block header %}
+    <div id="configure" class="bar-icon bar-icon-fixed">
+        <a href="/configure/" class="fui-gear" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Configure"></a>
     </div>
-    <div id="past_status">
+    <div id="logout" class="bar-icon bar-icon-fixed">
+        <a href="/logout/" class="fui-exit" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout"></a>
+    </div>
+    <div id="stretch">
+        <div id="back" class="bar-icon bar-icon-fixed">
+            <a href="/past/" class="fui-arrow-left" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Older"></a>
+        </div>
+        <div id="today" class="bar-icon bar-icon-fixed">
+            {% if post.length > 750 %}
+                <a id="current" class="fui-checkbox-checked" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
+            {% else %}
+                <a id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
+            {% endif %}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+
+{% endblock %}
+
+{% block content %}
+        <div id="past_status" class="bar-icon">
     {% for completed, length, url_string in past_status %}
         {% if length > 0 %}
             {% if completed %}
@@ -38,13 +59,6 @@
             <span class="fui-checkbox-unchecked dne"></span>
         {% endif %}
     {% endfor %}
-    </div>
-    <div id="today">
-    {% if post.length > 750 %}
-        <a id="current" class="fui-checkbox-checked" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
-    {% else %}
-        <a id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
-    {% endif %}
     </div>
     <div id="container">
         <form name="myform" id="myform">

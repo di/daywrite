@@ -17,23 +17,37 @@ jQuery(function($) {
             var cur = jQuery("#current");
             if (data.refresh) {
                 location.reload(true);
-            } else if (data.completed) {
-                if(cur.hasClass("fui-new")) {
-                    cur.removeAttr('style');
-                    cur.toggleClass("fui-new fui-checkbox-checked", 3000);
-                }
             } else {
-                if (cur.hasClass("fui-checkbox-checked")) {
-                    cur.removeAttr('style');
-                    cur.toggleClass("fui-new fui-checkbox-checked", 3000);
+                // Show the header if it's unpinned
+                var unpinned = $("#header").hasClass("headroom--unpinned");
+                if (unpinned) {
+                    $("#header").toggleClass("headroom--unpinned headroom--pinned")
+                }
+                if (data.completed) {
+                    if(cur.hasClass("fui-new")) {
+                        cur.removeAttr('style');
+                        cur.toggleClass("fui-new fui-checkbox-checked", 3000);
+                    }
                 } else {
-                    $("#current").animate({"color": "#16A085"}, 1000).
-                    delay(100).
-                    animate({"color": "#BDC3C7"}, 4000, "swing",
-                        function() {
-                            $("#current").removeAttr('style');
-                        }
-                    );
+                    if (cur.hasClass("fui-checkbox-checked")) {
+                        cur.removeAttr('style');
+                        cur.toggleClass("fui-new fui-checkbox-checked", 3000).promise().done(function(){
+                    // TODO: Move this into a better place
+                    /*
+                    if (unpinned) {
+                        $("#header").toggleClass("headroom--unpinned headroom--pinned")
+                    }
+                    */
+});
+                    } else {
+                        $("#current").animate({"color": "#16A085"}, 1000).
+                        delay(100).
+                        animate({"color": "#BDC3C7"}, 4000, "swing",
+                            function() {
+                                $("#current").removeAttr('style');
+                            }
+                        );
+                    }
                 }
             }
           },
@@ -46,7 +60,15 @@ jQuery(function($) {
   });
 });
 
-// Enable tooltips
+// Enable tooltips, headroom
 $(function(){
     $("[rel='tooltip']").tooltip();
+    $("header").headroom({
+        tolerance: {
+          down : 10,
+          up : 20
+        },
+        offset : 205
+    });
 });
+
