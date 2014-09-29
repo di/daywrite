@@ -5,11 +5,20 @@
     <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
     <script>
     $(document).ready(function(){
-      $('textarea').autosize({
-        "callback": scrollToBottom
-        });
       $('textarea').caret(-1);
+      $('textarea').autosize({
+        "callback": function(){
+            // Check if the caret is at the end of the textarea
+            if ($('textarea').caret() == $('textarea').val().length) {
+                // If it is, do the animation
+                $('html, body').stop().animate({
+                    scrollTop: $(document).height()
+                });
+            };
+        }
+      });
     });
+
     </script>
 {% endblock %}
 
