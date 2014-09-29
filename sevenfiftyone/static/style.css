@@ -176,7 +176,3 @@ a:hover.incomplete {
     background-color: #DCE0E1;
     color: #777;
 }
-
-#content ul{
-    overflow:hidden;
-}
