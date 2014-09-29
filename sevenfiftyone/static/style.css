@@ -19,10 +19,8 @@ header {
 }
 
 div.bar-icon {
-    text-align: center;
     height:1.6em;
     font-size:22px;
-    box-sizing:content-box;
 }
 
 div.bar-icon-fixed {
@@ -38,8 +36,13 @@ div#back {
 }
 
 div#past_status {
+    font-size:22px;
+    text-align: center;
     width: 100%;
     padding-top:25px;
+    padding-bottom:25px;
+    height:75px;
+    overflow-y:hidden;
 }
 
 div#today {
@@ -163,6 +166,7 @@ p:first-child {
 }
 
 #wrapper{
+    z-index: 20;
     min-height: 100%;
     height: auto !important;
     margin: 0 auto -4em;
