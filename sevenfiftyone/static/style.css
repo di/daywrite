@@ -30,13 +30,13 @@ div #back, #past_status, #today {
     float:left;
 }
 
-#content {
-    line-height:1.5em;
+#content, p {
+    line-height:1.65em !important;
     font-size:22px;
 }
 
 p {
-    font-size:22px;
+    margin: 0 0 1.65em !important;
 }
 
 p:first-child {
