@@ -1,4 +1,4 @@
-jQuery(function($) {
+$(function(){
   $("form").autosave({
     callbacks: {
       scope: "all",
@@ -57,7 +57,7 @@ jQuery(function($) {
         }
       }
     }
-  });
+  }).triggerHandler("save");
 });
 
 // Enable tooltips, headroom
@@ -72,3 +72,8 @@ $(function(){
     });
 });
 
+// Set trigger for autosave on page unload
+window.onbeforeunload = function(e) {
+    $("form").trigger("save");
+    return null;
+};
