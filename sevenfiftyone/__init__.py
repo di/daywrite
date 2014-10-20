@@ -41,6 +41,9 @@ app.jinja_env.filters["text_date"] = make_text_date
 # For CSRF usage
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
+# For the blurb
+punct = re.compile("\.|!|\?|;|:|,")
+
 def past_status():
     date = datetime.now(timezone(current_user.timezone))
     post_map = dict()
@@ -62,17 +65,33 @@ def post_root():
     if current_user.is_authenticated():
         content = request.form["content"]
         date_string = make_datestring(datetime.now(timezone(current_user.timezone)))
+
+        # Make sure the post is for the current day
         if request.form["date_string"] == date_string:
             content = request.form["content"]
+
+            # Count the number of words
             length = len(re.findall(r'\b\w+\b', content))
             completed = length > 750
+
+            # Create the blurb
             blurb = content[:50]
-            if 0 < blurb.find(".") < 50:
-                blurb = blurb[:blurb.find(".")+1]
+            punct_result = punct.search(blurb)
+
+            # See if there's any characters in the first 50 chars
+            if punct_result is not None and 0 < punct_result.start() < 50:
+                if punct_result.group() == "." :
+                    # There's a period, just keep it
+                    blurb = blurb[:punct_result.start()+1]
+                else :
+                    # There's something else, remove it and add an elllipsis
+                    blurb = blurb[:punct_result.start()] + "..."
             else :
+                # There's nothing, get the last space and replace it with an ellipsis
                 blurb = blurb[:blurb.rfind(" ")] + "..."
             Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=content, set__completed=completed, set__length=length, set__blurb=blurb)
             return jsonify({"completed":length > 750, "refresh": False}), 200
+        # The post is not for the current day, trigger a refresh
         return jsonify({"completed":false, "refresh": True}), 200
     else:
         form = LoginForm()
