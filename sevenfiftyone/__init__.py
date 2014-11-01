@@ -5,7 +5,7 @@ import requests
 import time
 import os
 from bs4 import BeautifulSoup
-from flask import Flask, request, render_template, flash, redirect, url_for, jsonify
+from flask import Flask, request, render_template, flash, redirect, url_for, jsonify, session
 from mongoengine import *
 from urlparse import urlparse
 from time import strptime, mktime, strftime
@@ -38,6 +38,15 @@ def today():
     return datetime.now(timezone(current_user.timezone))
 
 app = Flask(__name__)
+
+# Session flags
+@app.before_request
+def func():
+    session.permanent = True
+    session.modified = True
+
+# Set the session expiry to 5 minutes
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 # Tell jinja to trim blocks
 app.jinja_env.trim_blocks = True
