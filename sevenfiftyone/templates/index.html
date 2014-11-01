@@ -65,7 +65,7 @@
     <div id="container">
         <form name="myform" id="myform">
             <input type="hidden" name="date_string" id="date_string" value="{{ post.date_string }}"/>
-            <textarea name="content" id="content" cols=40 autofocus>{{ post.content }}</textarea>
+            <textarea name="content" id="content" cols=40 autofocus placeholder="What happened today?">{{ post.content }}</textarea>
         </form>
     </div>
 {% endblock %}
