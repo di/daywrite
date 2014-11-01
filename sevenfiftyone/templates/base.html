@@ -19,40 +19,14 @@
 
     {% endblock %}
 
-    {% block backbone_templates %}{% endblock %}
-
   </head>
 
   <body>
-    {%- block user -%}
-    {% if current_user.is_authenticated() %}
-      <div class="admin_user_menu">
-        <div class='admin_user'>
-          <div class='admin_user_nav'>
-            <ul>
-              <li><a href=" {{ url_for('account.account') }} ">Account</a></li>
-              <li><a href=" {{ url_for('logout') }} ">Logout</a></li>
-            </ul>
-          </div>
-
-          <div class='identification'>
-          {% if current_user.admin %}
-            <div class="circle" style="background: url(http://www.gravatar.com/avatar/{{current_user.email_hash}}?s=30?d=mm)"/></div>
-          {% endif %}
-            <div id="name">{{ current_user.email}}</div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-    {%- endblock -%}
-
-
     {% for message in get_flashed_messages() %}
     <div class='admin_flashes'>
       <div class='flash'>{{ message }}</div>
     </div>
     {% endfor %}
-
 
     <div class="content">
       {% block content %}{% endblock %}

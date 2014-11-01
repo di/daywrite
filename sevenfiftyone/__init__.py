@@ -177,6 +177,7 @@ def post_register():
         user.save()
         login_user(user)
         flash("Successfully registered")
+        return redirect(url_for("index"))
     return render_template('register.html', form=RegisterForm())
 
 

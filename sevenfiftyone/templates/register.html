@@ -1,4 +1,38 @@
-<form action="/register/" method="post"> 
-{% from "_macros.html" import render %}
-    {{ render(form) }}
-</form>
+{% extends "base.html" %}
+{% block content %}
+
+  <form action="{{ url_for('post_register') }}" method=post>
+        <div class="login-screen">
+          <div class="login-form">
+            <div class="login-icon">
+              <img src="{{ url_for('static', filename="img/icons/svg/pencils.svg") }}" alt="Pencils" />
+            </div>
+            <div class="login-header">
+              <h3>DayWrite</h3>
+              <h5>Better writing, every day.</h5>
+            </div>
+
+            <div class="form-group">
+              <input type="text" class="form-control login-field" value="" placeholder="Email" id="login-name" name="email" />
+              <label class="login-field-icon fui-mail" for="login-name"></label>
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control login-field" value="" placeholder="Choose a Password" id="login-pass" name="password" />
+              <label class="login-field-icon fui-lock" for="login-pass"></label>
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control login-field" value="" placeholder="Repeat Password" id="login-pass" name="confirm" />
+              <label class="login-field-icon fui-lock" for="login-pass"></label>
+            </div>
+
+
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign up" />
+          </div>
+      </div>
+    {% if ref %}
+        <input type="hidden" name="next" value="{{ ref }}"/>
+    {% endif %}
+  </form>
+{% endblock %}
