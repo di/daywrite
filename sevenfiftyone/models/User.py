@@ -11,7 +11,7 @@ class User(Document, UserMixin):
     email = EmailField(required=True)
     password = StringField(required=True)
     stripe_id = StringField()
-    confirmed = BooleanField(default=False)
+    confirmed = BooleanField(default=True)
     confirmed_at = DateTimeField()
     registered = BooleanField(default=False)
     created_at = DateTimeField(default=datetime.datetime.now())
