@@ -57,7 +57,7 @@ def index():
     if current_user.is_authenticated():
         date_string = make_datestring(datetime.now(timezone(current_user.timezone)))
         post, created = Post.objects.get_or_create(date_string=date_string, owner=current_user.id)
-        return render_template('index.html', post=post, past_status=past_status())
+        return render_template('index.html', post=post, past_status=past_status(), user=current_user)
     return render_template('login.html', form=LoginForm(), ref=request.args.get('next', None))
 
 @app.route("/", methods=["POST"])
@@ -87,9 +87,17 @@ def post_root():
                     # There's something else, remove it and add an elllipsis
                     blurb = blurb[:punct_result.start()] + "..."
             else :
-                # There's nothing, get the last space and replace it with an ellipsis
+                # There's nothing, get the last space and replace it with an
+                # ellipsis
                 blurb = blurb[:blurb.rfind(" ")] + "..."
+
+            # Save the post
             Post.objects.get(date_string=date_string, owner=current_user.id).update(set__content=content, set__completed=completed, set__length=length, set__blurb=blurb)
+
+            # Check the user's archive flag
+            if not current_user.has_archive:
+                current_user.has_archive = True
+                current_user.save()
             return jsonify({"completed":length > 750, "refresh": False}), 200
         # The post is not for the current day, trigger a refresh
         return jsonify({"completed":false, "refresh": True}), 200

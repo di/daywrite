@@ -31,7 +31,9 @@
     </div>
     <div id="stretch">
         <div id="back" class="bar-icon bar-icon-fixed">
-            <a href="/past/" class="fui-arrow-left" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Older"></a>
+            {% if user.has_archive %}
+                <a href="/past/" class="fui-arrow-left" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Older"></a>
+            {% endif %}
         </div>
         <div id="today" class="bar-icon bar-icon-fixed">
             {% if post.length > 750 %}
