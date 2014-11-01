@@ -155,7 +155,7 @@ def get_past():
     return redirect(url_for("index"))
 
 @app.route("/register/", methods=["GET"])
-def get_register():
+def register():
     return render_template('register.html', form=RegisterForm())
 
 @app.route("/register/", methods=["POST"])

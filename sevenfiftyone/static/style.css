@@ -217,6 +217,10 @@ div.login-header {
     padding-right:10px;
 }
 
+.login-link {
+    color: rgb(52, 73, 94);
+}
+
 /* Flash */
 
 .admin_flashes {

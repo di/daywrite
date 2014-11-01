@@ -8,8 +8,8 @@
               <img src="{{ url_for('static', filename="img/icons/svg/pencils.svg") }}" alt="Pencils" />
             </div>
             <div class="login-header">
-              <h3>751 words</h3>
-              <h5>Better writing every day.</h5>
+              <h3>DayWrite</h3>
+              <h5>Better writing, every day.</h5>
             </div>
 
             <div class="form-group">
@@ -23,7 +23,8 @@
             </div>
 
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Log in" />
-            <a class="login-link" href="{{ url_for("forgot_password") }}">Lost your password?</a>
+            <a class="login-link" href="{{ url_for("register") }}">Create a new account</a>
+            <!--<a class="login-link" href="{{ url_for("forgot_password") }}">Lost your password?</a>-->
           </div>
       </div>
     {% if ref %}
