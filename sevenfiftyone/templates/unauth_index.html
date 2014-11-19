@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="header gray">
+      <div class="container">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="#about">About</a></li>
+            <li role="presentation"><a href="/login/">Login</a></li>
+          </ul>
+        </nav>
+      </div> <!--/container-->
+    </div> <!--/header-->
+
+      <div class="jumbotron">
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-0 col-sm-3 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+                <img class="logo" src="{{ url_for('static', filename="img/icons/svg/pencils.svg") }}" alt="Pencils" />
+            </div> <!--/col-->
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <h1>Better writing, every day.</h1>
+                <p class="lead">Day Write is a daily writing tool which helps you become a better writer simply by making you write every day. It's stupid simple, and not only does it make you a better writer, <a href="#ftk">but it can help others, too</a>.</p>
+                <p><a class="btn btn-lg btn-primary" href="#invite" role="button">Request an invite</a></p>
+            </div> <!--/col-->
+        </div><!--/row-->
+      </div><!--/container-fluid-->
+    </div><!--/jumbotron-->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-push-8 col-sm-3 col-sm-push-9 col-xs-3">
+            <img class="logo" src="{{ url_for('static', filename="img/icons/svg/mail.svg") }}" alt="Pencils" />
+        </div>
+        <div class="col-md-6 col-md-pull-2 col-md-offset-2 col-sm-9 col-sm-pull-3">
+          <h4>Make it a habit</h4>
+          <p>Day Write encourages you to write every day, with reminders if you need them. It automagically detects your writing habits and can determine when you're most likely to want to sit and write, giving you a gentle prod.</p>
+        </div><!--/col-->
+      </div><!--/row-->
+    </div><!--/container-->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3">
+            <img class="logo" src="{{ url_for('static', filename="img/icons/svg/toilet-paper.svg") }}" alt="Pencils" />
+        </div>
+        <div class="col-md-6 col-sm-9">
+          <h4>Quantity, not quality</h4>
+          <p>Your goal is to write about three pages a day, regardless of content. The idea is to exercise the muscle which puts your thoughts into text. Write whatever you want, but just make sure you hit the mark, or it doesn't count.</p>
+        </div><!--/col-->
+      </div><!--/row-->
+    </div><!--/container-->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-push-8 col-sm-3 col-sm-push-9 col-xs-3">
+            <img class="logo" src="{{ url_for('static', filename="img/icons/svg/clipboard.svg") }}" alt="Pencils" />
+        </div>
+        <div class="col-md-6 col-md-pull-2 col-md-offset-2 col-sm-9 col-sm-pull-3">
+          <h4>Build up a streak</h4>
+          <p>Using the <a href="http://lifehacker.com/281626/jerry-seinfelds-productivity-secret">Seinfeld Method</a>, Day Write shows you the unbroken chain of days in which you have successfully written the alloted amount. For some reason, this really appeals to your crazy lizard-brain. Don't miss one!</p>
+        </div><!--/col-->
+      </div><!--/row-->
+    </div><!--/container-->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3">
+            <img class="logo" src="{{ url_for('static', filename="img/icons/svg/book.svg") }}" alt="Pencils" />
+        </div>
+        <div class="col-md-6 col-sm-9">
+          <h4>Complete privacy</h4>
+          <p>There's no way for anyone else to see what you write, ever, and we're proud of that. So go crazy. Write out your hopes, your dreams, your sorrows, your love letters, and your Dana Carvy fanmail drafts. Nobody's gonna see it but you.</p>
+        </div><!--/col-->
+      </div><!--/row-->
+    </div><!--/container-->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-push-8 col-sm-3 col-sm-push-9 col-xs-3">
+            <img class="logo" src="{{ url_for('static', filename="img/icons/svg/retina.svg") }}" alt="Pencils" />
+        </div>
+        <div class="col-md-6 col-md-pull-2 col-md-offset-2 col-sm-9 col-sm-pull-3">
+          <h4>Give yourself more incentive</h4>
+          <p>Not quite making your goal of writing every single day? No problem! Day Write will happily punish you for it. Flip the switch and we'll charge you $0.99 for every day that you don't write. Sucks, don't it?! Better get to writing.</p>
+        </div><!--/col-->
+
+      </div><!--/row-->
+    </div><!--/container-->
+
+    <section id="ftk">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-2 col-sm-3 col-xs-3">
+            <img class="logo" src="{{ url_for('static', filename="img/icons/svg/gift-box.svg") }}" alt="Pencils" />
+        </div>
+        <div class="col-md-6 col-sm-9">
+          <h4>It's for the kids, man</h4>
+          <p>Every month we take the profits and donate them to <a href="http://www.mightywriters.org/">Mighty Writers</a>, a non-profit which teaches kids (ages 7 to 17) to think and write with clarity so they can achieve success at school, at work and in life.</p>
+        </div><!--/col-->
+      </div><!--/row-->
+    </div><!--/container-->
+    </section>
+
+
+<section id="invite" class="invite">
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2>Sign up</h2>
+        <hr/>
+        <p>Aw, dangs. Day Write is currently invite-only, but if you'd like request an invite, just plug your email address in below and we'll hook you up as soon as possible, we promise.</p>
+    </div>
+  </div>
+</div>
+<div class="container">
+        <form action="{{ url_for('index') }}" method="POST">
+  <div class="row">
+<div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-12">
+          <input type="text" class="form-control login-field" value="" placeholder="Email" id="login-name" name="email" />
+</div>
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+        <input class="btn btn-inverse btn-lg btn-block" type="submit" value="Request an Invite" />
+</div>
+</div><!--/row-->
+        </form>
+        <br/>
+        <br/>
+</div><!--/container-->
+</section>
+
+
+    <section id="about">
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+          <h4>About</h4>
+          <p>Made in Philly with <img src="{{ url_for('static', filename="img/icons/svg/love.svg") }}"> by <a href="http://github.com/di">@di</a></p>
+          <p>Not affiliated with <a href="http://mightywriters.org">Mighty Writers</a> in any way.</p>
+          <p>Payments processed securly with <a href="https://stripe.com/">Stripe</a>.</p>
+          <p>Styles and icons courtesy <a href="http://designmodo.github.io/Flat-UI/">FlatUI</a>.</p>
+          <p>&copy; 2014</p>
+        
+            </div>
+        </div>
+      </div>
+    </footer>
+    </section>
+
+
+{% endblock %}

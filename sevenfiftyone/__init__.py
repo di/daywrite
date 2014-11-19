@@ -72,7 +72,29 @@ def index():
         date_string = make_datestring(today())
         post, created = Post.objects.get_or_create(date_string=date_string, owner=current_user.id)
         return render_template('index.html', post=post, past_status=past_status(), user=current_user)
+    return render_template('unauth_index.html')
+
+@app.route("/", methods=["POST"])
+def post_index():
+    User.objects.get_or_create(email=request.form.get('email'))
+    flash("Invite requested!")
+    return redirect(url_for('index'))
+
+@app.route("/login/", methods=["GET"])
+def get_login():
     return render_template('login.html', form=LoginForm(), ref=request.args.get('next', None))
+
+@app.route("/login/", methods=["POST"])
+def post_login():
+    form = LoginForm()
+    ref = request.values.get('next', None)
+    if form.validate_on_submit():
+        # login and validate the user...
+        user = User.objects.get(id=form.user.id)
+        login_user(user)
+        flash("Logged in successfully.")
+        return redirect(ref or url_for("index"))
+    return render_template("login.html", form=form, ref=ref)
 
 @app.route("/", methods=["POST"])
 def post_root():
@@ -117,16 +139,7 @@ def post_root():
         # The post is not for the current day, trigger a refresh
         return jsonify({"completed":false, "refresh": True}), 200
     else:
-        form = LoginForm()
-        ref = request.values.get('next', None)
-        if form.validate_on_submit():
-            # login and validate the user...
-            user = User.objects.get(id=form.user.id)
-            login_user(user)
-            flash("Logged in successfully.")
-            return redirect(ref or url_for("index"))
-        return render_template("login.html", form=form, ref=ref)
-
+        return redirect(url_for("get_login"))
 
 @app.route("/<int:year>/<int:month>/<int:day>/", methods=["GET"])
 def get_post(year, month, day):
