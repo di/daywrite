@@ -74,8 +74,8 @@ def index():
         return render_template('index.html', post=post, past_status=past_status(), user=current_user)
     return render_template('unauth_index.html')
 
-@app.route("/", methods=["POST"])
-def post_index():
+@app.route("/invite/", methods=["POST"])
+def post_invite():
     User.objects.get_or_create(email=request.form.get('email'))
     flash("Invite requested!")
     return redirect(url_for('index'))
