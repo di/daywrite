@@ -15,6 +15,8 @@ $(function(){
           type: "POST",
           success: function(data, textStatus, jqXHR) {
             var cur = jQuery("#current");
+            if (data.logged_out) {
+            }
             if (data.refresh) {
                 location.reload(true);
             } else {
@@ -38,7 +40,7 @@ $(function(){
                         $("#header").toggleClass("headroom--unpinned headroom--pinned")
                     }
                     */
-});
+                    });
                     } else {
                         $("#current").animate({"color": "#16A085"}, 1000).
                         delay(100).
@@ -60,15 +62,24 @@ $(function(){
   }).triggerHandler("save");
 });
 
-// Enable tooltips, headroom
 $(function(){
+
+    // Turn on tooltips
     $("[rel='tooltip']").tooltip();
+
+    // Initialize headroom
     $("header").headroom({
         tolerance: {
           down : 10,
           up : 20
         },
         offset : 205
+    });
+
+    // Set the idleTimer to log out after 5 minutes
+    $.idleTimer(300000);
+    $( document ).on( "idle.idleTimer", function(event, elem, obj){
+        window.location.href = "/logout/";
     });
 });
 

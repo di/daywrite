@@ -98,74 +98,78 @@ def post_login():
 
 @app.route("/", methods=["POST"])
 def post_root():
-    if current_user.is_authenticated():
-        content = request.form["content"]
-        date_string = make_datestring(today())
+    if not current_user.is_authenticated():
+        return redirect(url_for("get_login"))
 
-        # Make sure the post is for the current day
-        if request.form["date_string"] == date_string:
-            content = request.form["content"]
+    content = request.form["content"]
+    date_string = make_datestring(today())
 
-            # Count the number of words
-            length = len(re.findall(r'\b\w+\b', content))
-            completed = length > 750
-
-            # Create the blurb
-            blurb = content[:50]
-            punct_result = punct.search(blurb)
-
-            # See if there's any characters in the first 50 chars
-            if punct_result is not None and 0 < punct_result.start() < 50:
-                if punct_result.group() == "." :
-                    # There's a period, just keep it
-                    blurb = blurb[:punct_result.start()+1]
-                else :
-                    # There's something else, remove it and add an elllipsis
-                    blurb = blurb[:punct_result.start()] + "..."
-            else :
-                # There's nothing, get the last space and replace it with an
-                # ellipsis
-                blurb = blurb[:blurb.rfind(" ")] + "..."
-
-            # Save the post
-            post = Post.objects.get(date_string=date_string, owner=current_user.id)
-            post.update(set__content=content, set__completed=completed, set__length=length, set__blurb=blurb)
-
-            # Check the user's archive flag
-            if not current_user.has_archive:
-                current_user.has_archive = True
-                current_user.save()
-            return jsonify({"completed":length > 750, "refresh": False}), 200
+    # Make sure the post is for the current day
+    if request.form["date_string"] != date_string:
         # The post is not for the current day, trigger a refresh
         return jsonify({"completed":false, "refresh": True}), 200
-    else:
-        return redirect(url_for("get_login"))
+
+    content = request.form["content"]
+
+    # Count the number of words
+    length = len(re.findall(r'\b\w+\b', content))
+    completed = length > 750
+
+    # Create the blurb
+    blurb = content[:50]
+    punct_result = punct.search(blurb)
+
+    # See if there's any characters in the first 50 chars
+    if punct_result is not None and 0 < punct_result.start() < 50:
+        if punct_result.group() == "." :
+            # There's a period, just keep it
+            blurb = blurb[:punct_result.start()+1]
+        else :
+            # There's something else, remove it and add an elllipsis
+            blurb = blurb[:punct_result.start()] + "..."
+    else :
+        # There's nothing, get the last space and replace it with an
+        # ellipsis
+        blurb = blurb[:blurb.rfind(" ")] + "..."
+
+    # Save the post
+    post = Post.objects.get(date_string=date_string, owner=current_user.id)
+    post.update(set__content=content, set__completed=completed, set__length=length, set__blurb=blurb)
+
+    # Check the user's archive flag
+    if not current_user.has_archive:
+        current_user.has_archive = True
+        current_user.save()
+
+    return jsonify({"completed":length > 750, "refresh": False}), 200
 
 @app.route("/<int:year>/<int:month>/<int:day>/", methods=["GET"])
 def get_post(year, month, day):
-    if current_user.is_authenticated():
-        # Get the date string with leading zeros from the URL
-        date_string = "%d-%02d-%02d" % (year, month, day)
+    if not current_user.is_authenticated():
+        return redirect(url_for("index"))
 
-        # If the archive is today, go to the index instead
-        if date_string == make_datestring(today()):
-            return redirect(url_for("index"))
+    # Get the date string with leading zeros from the URL
+    date_string = "%d-%02d-%02d" % (year, month, day)
 
-        # See if the date in the URL corresponds to a post
-        try:
-            post = Post.objects.get(date_string=date_string, owner=current_user.id)
-        except Post.DoesNotExist:
-            return render_template('missing.html', date_string=date_string)
+    # If the archive is today, go to the index instead
+    if date_string == make_datestring(today()):
+        return redirect(url_for("index"))
 
-        return render_template('past_single.html', post=post)
-    return redirect(url_for("index"))
+    # See if the date in the URL corresponds to a post
+    try:
+        post = Post.objects.get(date_string=date_string, owner=current_user.id)
+    except Post.DoesNotExist:
+        return render_template('missing.html', date_string=date_string)
+
+    return render_template('past_single.html', post=post)
 
 @app.route("/past/", methods=["GET"])
 def get_past():
-    if current_user.is_authenticated():
-        posts = Post.objects(owner=current_user.id, length__gt=0).order_by('-date')
-        return render_template('past.html', posts=posts)
-    return redirect(url_for("index"))
+    if not current_user.is_authenticated():
+        return redirect(url_for("index"))
+
+    posts = Post.objects(owner=current_user.id, length__gt=0).order_by('-date')
+    return render_template('past.html', posts=posts)
 
 @app.route("/register/", methods=["GET"])
 def register():
@@ -202,7 +206,7 @@ def forgot_password():
 def logout():
     logout_user()
     flash("You have been logged out.")
-    return redirect(url_for("index"))
+    return redirect(url_for("get_login"))
 
 login_manager = LoginManager()
 login_manager.init_app(app)
