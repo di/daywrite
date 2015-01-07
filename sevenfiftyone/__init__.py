@@ -17,6 +17,7 @@ from models.Post import Post
 from flask.ext.login import LoginManager, current_user, AnonymousUserMixin, login_user, logout_user
 from forms.LoginForm import LoginForm
 from forms.RegisterForm import RegisterForm
+from forms.ConfigureForm import ConfigureForm
 import md5
 from werkzeug import check_password_hash, generate_password_hash
 from pytz import timezone
@@ -197,6 +198,15 @@ def post_register():
         return redirect(url_for("index"))
     return render_template('register.html', form=RegisterForm())
 
+@app.route("/configure/", methods=["GET"])
+def get_configure():
+    form = ConfigureForm()
+    form.timezone.data = current_user.timezone
+    return render_template('configure.html', form=form)
+
+@app.route("/configure/", methods=["POST"])
+def post_configure():
+    return None
 
 @app.route("/forgot_password/")
 def forgot_password():

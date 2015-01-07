@@ -1,0 +1,14 @@
+{% extends "inside_base.html" %}
+{% from "_macros.html" import render %}
+
+{% block styles %}
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}' type='text/css' media='all' />
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
+{% endblock %}
+
+{% block content %}
+    <h3>Configure</h3>
+    <form action="{{ url_for('post_configure') }}" method=post>
+        {{ render(form) }}
+    </form>
+{% endblock %}
