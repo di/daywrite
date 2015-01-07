@@ -61,10 +61,10 @@ punct = re.compile("\.|!|\?|;|:|,")
 
 def past_status():
     post_map = dict()
-    posts = Post.objects(owner=current_user.id).order_by('-date').limit(30)
+    posts = Post.objects(owner=current_user.id).order_by('-date').limit(29)
     for post in posts:
         post_map[post.date_string] = (post.completed, post.length, post.url_string())
-    return [post_map.get(make_datestring(today() - timedelta(days=i)), (False, 0, None)) for i in reversed(range(1,30))]
+    return [post_map.get(make_datestring(today() - timedelta(days=i)), (False, 0, None)) for i in reversed(range(1,29))]
 
 @app.route("/", methods=["GET"])
 def index():
