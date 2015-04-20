@@ -4,6 +4,15 @@
     <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
 {% endblock %}
 
+{% block header %}
+    <div id="stretch">
+        <div id="today" class="bar-icon bar-icon-fixed">
+            <a id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}
+
 {% block content %}
     <!--
     <div id="back">
@@ -11,9 +20,6 @@
     </div>
     -->
     <div id="past_status"></div>
-    <div id="today">
-        <a href="/" id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
-    </div>
     <div id="container">
         <span name="content" id="content" cols=40 autofocus>
             {% for p in post.content.split('\n') %}

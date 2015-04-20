@@ -5,6 +5,15 @@
     <link rel='stylesheet' href='{{ url_for('static', filename='css/flat-ui.css') }}' type='text/css' media='all' />
 {% endblock %}
 
+{% block header %}
+    <div id="stretch">
+        <div id="today" class="bar-icon bar-icon-fixed">
+            <a id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}
+
 {% block content %}
     <!--
     <div id="back">
@@ -12,18 +21,14 @@
     </div>
     -->
     <div id="past_status"></div>
-    <div id="today">
-        <a href="/" id="current" class="fui-new" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Today"></a>
-    </div>
     <div id="container">
         <span name="content" id="content" cols=40 autofocus>
-            {% for post in posts %}
-                {% if post.completed %}
-                <a href="/{{ post.date_string.replace("-", "/") }}" class="fui-checkbox-checked">&nbsp;<i>"{{ post.blurb }}"</i> ({{post.date|text_date}})</a><br/>
-                {% else %}
-                <a href="/{{ post.date_string.replace("-", "/") }}" class="fui-checkbox-unchecked incomplete">&nbsp;<i>"{{ post.blurb }}"</i> ({{ post.date|text_date }})</a><br/>
-                {% endif %}
-            {% endfor %}
+        {% for post in posts %}
+            <a href="/{{ post.date_string.replace("-", "/") }}"
+               class="fui-checkbox-checked {{ 'incomplete' if not post.completed else '' }}">
+               &nbsp;&ldquo;{{ post.blurb }}&rdquo;&nbsp;<i>({{post.date|text_date}})</i>
+            </a><br/>
+        {% endfor %}
         </span>
     </div>
 {% endblock %}
